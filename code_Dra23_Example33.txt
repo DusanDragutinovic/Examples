@@ -1,0 +1,54 @@
+// This is the code supporting Example 3.3 of the article [Dra23] "Supersingular curves of genus four in characteristic two" by the author. 
+// It uses the repositories https://github.com/stmar89/AbVarFq and https://github.com/stmar89/PolsAbVarFpCanLift. 
+// It cites [BKM21] by Bergstrom, J. and Karemaker, V. and Marseglia, S.: "Polarizations of abelian varieties over finite fields via canonical liftings", Int. Math. Res. Not., 2021.
+// Condition [Dra23, (2.4)] is the same condition as [BKM21, Theorem 5.5.2], while condition [BKM21, Theorem 5.5.1] implies it. 
+// The original code (without the comments and their applications) was written in the third week of March '22 with Stefano Marseglia's help and used in the third and fourth weeks of March '22 to obtain the results presented in the mentioned article. 
+
+    AttachSpec("~/packages_github/AbVarFq/packages.spec");
+    Attach("~/packages_github/PolsAbVarFpCanLift/ResRefCond.m");
+    
+    _<x>:=PolynomialRing(Integers());
+    f:=x^8 + 2*x^7 + 2*x^6 - 4*x^4 + 8*x^2 + 16*x + 16;
+    If:=IsogenyClass(f);
+    If;
+    q:=FiniteField(If);
+    pRank(If);
+    R:=ZFVOrder(If);
+    L:=Algebra(R);
+    oo:=[ S : S in FindOverOrders(R) | S eq ComplexConjugate(S) ];
+
+    O:=MaximalOrder(L);
+    "there is only one non-maximal order of index coprime to p"; 
+    S:=[T : T in oo | IsCoprime(Index(O,T),q) ][1];
+    US,uS:=UnitGroup2(S);
+    USr:=TotallyRealUnitGroup(S);
+    gens_USr:=[USr.i@uS : i in [1..Ngens(USr)]]; 
+    for T in oo do
+        "index =",Index(O,T);
+        "IsGorenstein =",IsGorenstein(T);
+        "# classes with End=T =",#PicardGroup(T);
+        UT,uT:=UnitGroup2(T);
+        UTr:=TotallyRealUnitGroup(T); 
+        "does [BKM21, Theorem 5.5.1] hold (which automatically implies that [Dra23, (2.4)] is satisfied)?",USr subset UTr;
+        Tau:=[ u@uT : u in Transversal(UT,sub<UT|[ UT.i*(ComplexConjugate(UT.i@uT))@@uT : i in [1..Ngens(UT)] ]>)];
+        "does [BKM21, Theorem 5.5.2] (that is condition [Dra23, (2.4)]) hold?",forall{ g : g in gens_USr | exists{ u : u in Tau | IsTotallyRealPositive(g/u) }};
+        "\n";
+    end for;
+    all_cm:=AllCMTypes(If);
+    "number of CM Types satisfying RRC=",#ResidualReflexCondition(If : MethodRationalSplittingField := "Magma");
+
+    "CM types satisfying RRC (sorted as in AllCMTypes)=\n",[ PHI in ResidualReflexCondition(If) : PHI in all_cm ];
+
+// The first CM-type satisfies the RRC, so we take it as PHI.
+
+PHI:=all_cm[1];
+    for T in oo do
+        "\nindex of End =",Index(O,T);
+        for A in ComputeIsomorphismClassesWithEndomorphismRing(If,T) do
+            "new isomorphism class";
+            printf "princ. pols.: ";
+            _,pp:=IsPrincipallyPolarized(A,PHI);
+            printf "%o \n",#pp;
+	    printf "automorphisms = %o\n",#TorsionSubgroup(UnitGroup2(T));
+        end for;
+    end for;

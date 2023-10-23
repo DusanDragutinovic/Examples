@@ -1,5 +1,5 @@
 // This is the code supporting Example 3.3 of the article [Dra23] "Supersingular curves of genus four in characteristic two" by the author. 
-// It uses the repositories https://github.com/stmar89/AbVarFq and https://github.com/stmar89/PolsAbVarFpCanLift. 
+// It uses the repositories https://github.com/stmar89/AbVarFq (last commit: Dec 10, 2021) and https://github.com/stmar89/PolsAbVarFpCanLift (last commit: Nov 16, 2021). 
 // It cites [BKM21] by Bergstrom, J. and Karemaker, V. and Marseglia, S.: "Polarizations of abelian varieties over finite fields via canonical liftings", Int. Math. Res. Not., 2021.
 // Condition [Dra23, (2.4)] is the same condition as [BKM21, Theorem 5.5.2], while condition [BKM21, Theorem 5.5.1] implies it. 
 // The original code (without the comments and their applications) was written in the third week of March '22 with Stefano Marseglia's help and used in the third and fourth weeks of March '22 to obtain the results presented in the mentioned article. 

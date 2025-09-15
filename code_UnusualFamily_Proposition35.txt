@@ -1,0 +1,72 @@
+# Proposition 3.5, Part 1
+from sage.all import *
+F = GF(2)['A, B, C, b_2, b_3, b_6, b_8, b_2p, b_3p, b_6p, b_8p, a, b, c, d, e1, f1, g1, h1, i1, e2, f2, g2, h2, i2']
+A, B, C, b_2, b_3, b_6, b_8, b_2p, b_3p, b_6p, b_8p, a, b, c, d, e1, f1, g1, h1, i1, e2, f2, g2, h2, i2 = F.gens()
+
+G = F['X, Y, Z, T, U']
+X, Y, Z, T, U = G.gens()
+
+
+# e1 = a*b^2    #6th unmark this line
+# d = 1         #5th unmark this line
+# c = f1 = 0    #4th unmark this line
+# h1 = 1        #3rd unmark this line
+# B = h1^2      #2nd unmark this line
+# C = i1 = 0    #1st unmark this line
+
+X1 = (a*d - b*c)*X + a*c*Y + b*d*Z
+Y1 = a^2*Y + b^2*Z
+Z1 = c^2*Y + d^2*Z
+T1 = e1*X + f1*Y + g1*Z + h1*T + i1*U
+U1 = e2*X + f2*Y + g2*Z + h2*T + i2*U
+
+q1 = X1^2 + Y1*Z1
+q2 = X1*Y1 + Z1*T1 + T1^2
+q3 = b_2*X1*Z1 + b_3*X1*T1 + b_6*Y1*T1 + b_8*Z1*T1 + Z1*U1 + U1^2 
+
+q1p = X1^2 + Y1*Z1
+q2p = X*Y + Z*T + T^2
+q3p = b_2p*X*Z + b_3p*X*T + b_6p*Y*T + b_8p*Z*T + Z*U + U^2 
+
+print(q2 + A*q1p + B*q2p + C*q3p, "\n")
+
+
+"""***************************************************"""
+
+# Proposition 3.5, Part 2
+from sage.all import *
+F = GF(2)['A, B, C, b_2, b_3, b_6, b_8, b_2p, b_3p, b_6p, b_8p, a, b, c, d, e1, f1, g1, h1, i1, e2, f2, g2, h2, i2']
+A, B, C, b_2, b_3, b_6, b_8, b_2p, b_3p, b_6p, b_8p, a, b, c, d, e1, f1, g1, h1, i1, e2, f2, g2, h2, i2 = F.gens()
+
+G = F['X, Y, Z, T, U']
+X, Y, Z, T, U = G.gens()
+
+
+
+#f2 = 0        #8th unark this line
+#B = h2^2      #7th unark this line
+#C = i2 = 1    #6th unmark this line
+
+#Part 1 gives us relations below
+
+#e1 = a*b^2    #5th unmark this line
+#d = 1         #4th unmark this line
+#c = f1 = 0    #3th unmark this line
+#h1 = 1        #2rd unmark this line
+#i1 = 0        #1st unmark this line
+
+X1 = (a*d - b*c)*X + a*c*Y + b*d*Z
+Y1 = a^2*Y + b^2*Z
+Z1 = c^2*Y + d^2*Z
+T1 = e1*X + f1*Y + g1*Z + h1*T + i1*U
+U1 = e2*X + f2*Y + g2*Z + h2*T + i2*U
+
+q1 = X1^2 + Y1*Z1
+q2 = X1*Y1 + Z1*T1 + T1^2
+q3 = b_2*X1*Z1 + b_3*X1*T1 + b_6*Y1*T1 + b_8*Z1*T1 + Z1*U1 + U1^2 
+
+q1p = X1^2 + Y1*Z1
+q2p = X*Y + Z*T + T^2
+q3p = b_2p*X*Z + b_3p*X*T + b_6p*Y*T + b_8p*Z*T + Z*U + U^2 
+
+print(q3 + A*q1p + B*q2p + C*q3p, "\n")

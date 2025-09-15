@@ -1,4 +1,4 @@
-# Proposition 3.5, Part 1
+# Proposition 3.6, Part 1
 from sage.all import *
 F = GF(2)['A, B, C, b_2, b_3, b_6, b_8, b_2p, b_3p, b_6p, b_8p, a, b, c, d, e1, f1, g1, h1, i1, e2, f2, g2, h2, i2']
 A, B, C, b_2, b_3, b_6, b_8, b_2p, b_3p, b_6p, b_8p, a, b, c, d, e1, f1, g1, h1, i1, e2, f2, g2, h2, i2 = F.gens()
@@ -68,5 +68,6 @@ q3 = b_2*X1*Z1 + b_3*X1*T1 + b_6*Y1*T1 + b_8*Z1*T1 + Z1*U1 + U1^2
 q1p = X1^2 + Y1*Z1
 q2p = X*Y + Z*T + T^2
 q3p = b_2p*X*Z + b_3p*X*T + b_6p*Y*T + b_8p*Z*T + Z*U + U^2 
+
 
 print(q3 + A*q1p + B*q2p + C*q3p, "\n")
